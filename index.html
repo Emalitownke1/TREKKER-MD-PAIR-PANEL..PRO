@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>WhatsApp Pairing</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #12123a;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 1.1em;
+      margin: 5px;
+      border-radius: 6px;
+    }
+    #code {
+      margin-top: 20px;
+      padding: 10px;
+      background: white;
+      color: black;
+      font-weight: bold;
+      border-radius: 6px;
+      display: none;
+    }
+    #copyBtn {
+      margin-left: 10px;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h2>Enter Your WhatsApp Number</h2>
+  <input type="text" id="phone" placeholder="2547xxxxxxx" />
+  <button onclick="getCode()">Get Pair Code</button>
+
+  <div id="codeBox">
+    <span id="code"></span>
+    <button id="copyBtn" style="display:none;" onclick="copyCode()">Copy</button>
+  </div>
+
+  <script>
+    async function getCode() {
+      const phone = document.getElementById("phone").value.trim();
+      if (!phone) {
+        alert("Please enter your phone number with country code");
+        return;
+      }
+
+      try {
+        const res = await fetch(
+          "https://651ccacf-e0af-4a69-aab0-bb745ad1e5e7-dev.e1-us-east-azure.choreoapis.dev/default/trekkermd-pair/v1.0/code?number=" + phone
+        );
+        const data = await res.json();
+        document.getElementById("code").innerText = "CODE: " + data.code;
+        document.getElementById("code").style.display = "inline-block";
+        document.getElementById("copyBtn").style.display = "inline-block";
+      } catch (err) {
+        console.error(err);
+        alert("Failed to fetch pairing code. Check API.");
+      }
+    }
+
+    function copyCode() {
+      const text = document.getElementById("code").innerText.replace("CODE: ", "");
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Code copied to clipboard: " + text);
+      });
+    }
+  </script>
+</body>
+</html>
