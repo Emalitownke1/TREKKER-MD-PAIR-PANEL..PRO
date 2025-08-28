@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "install": "yarn install"
+    "dev": "node index.js"
   },
   "dependencies": {
     "express": "^5.1.0"

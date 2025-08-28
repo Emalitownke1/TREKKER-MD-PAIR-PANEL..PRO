@@ -5,7 +5,7 @@ run = "yarn start"
 channel = "stable-25_05"
 
 [deployment]
-run = ["sh", "-c", "yarn start"]
+run = ["sh", "-c", "npm start"]
 
 [[ports]]
 localPort = 3000
@@ -21,4 +21,4 @@ mode = "sequential"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "yarn start"
+args = "npm start"
