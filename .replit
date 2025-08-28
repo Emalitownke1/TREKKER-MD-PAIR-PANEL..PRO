@@ -1,11 +1,11 @@
 modules = ["web", "nodejs-20"]
-run = "npm run start"
+run = "yarn start"
 
 [nix]
 channel = "stable-25_05"
 
 [deployment]
-run = ["sh", "-c", "npm run start"]
+run = ["sh", "-c", "yarn start"]
 
 [[ports]]
 localPort = 3000
@@ -21,4 +21,4 @@ mode = "sequential"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "node index.js"
+args = "yarn start"
