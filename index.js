@@ -1,6 +1,19 @@
 // index.js
-const express = require("express");
+const { execSync } = require("child_process");
 const path = require("path");
+
+// Install dependencies first
+console.log("Installing dependencies...");
+try {
+  execSync("npm install", { stdio: "inherit" });
+  console.log("Dependencies installed successfully!");
+} catch (error) {
+  console.error("Failed to install dependencies:", error.message);
+  process.exit(1);
+}
+
+// Now require express after installation
+const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
